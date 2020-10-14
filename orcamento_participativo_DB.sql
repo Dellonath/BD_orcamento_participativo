@@ -1,7 +1,7 @@
 CREATE TABLE Usuario(
 	id INT PRIMARY KEY,
-	identidade INT NOT NULL,
-	cpf INT NOT NULL,
+	identidade VARCHAR(15) NOT NULL,
+	cpf VARCHAR(15) NOT NULL,
 	nome VARCHAR(50) NOT NULL,
 	telefone INT NOT NULL,
 	email VARCHAR(25) NOT NULL,
@@ -21,6 +21,7 @@ CREATE TABLE Cidadao(
 	profissao VARCHAR(25) NOT NULL,
 	titulo_eleitor INT NOT NULL,
 	idMunicipio INT NOT NULL,
+	FOREIGN KEY (idUsuario) REFERENCES Usuario(id),
 	FOREIGN KEY (idMunicipio) REFERENCES Municipio(id)
 )
 
@@ -30,6 +31,7 @@ CREATE TABLE Gestor(
 	data_inicio DATE NOT NULL,
 	data_fim DATE NOT NULL CHECK(data_inicio < data_fim),
 	idMunicipio INT NOT NULL,
+	FOREIGN KEY (idUsuario) REFERENCES Usuario(id),
 	FOREIGN KEY (idMunicipio) REFERENCES Municipio(id)
 )
 
@@ -40,15 +42,14 @@ CREATE TABLE Projeto(
 	total_gasto INT,
 	status INT NOT NULL CHECK(status = 0 OR status = 1 OR status = 2 OR status = 3) NOT NULL,
 	idGestor INT NOT NULL,
-	FOREIGN KEY (idGestor) REFERENCES Gestor(id)
+	FOREIGN KEY (idGestor) REFERENCES Gestor(idUsuario)
 )
 
 CREATE TABLE Municipio(
 	id INT PRIMARY KEY,
 	nome VARCHAR(40) NOT NULL,
 	sigla CHAR(3) NOT NULL,
-	qtd_hab INT NOT NULL, 
-	CHECK(qtd_hab >= 0),
+	qtd_hab INT NOT NULL CHECK(qtd_hab >= 0)
 )
 
 CREATE TABLE Sugestao(
@@ -62,6 +63,6 @@ CREATE TABLE Vota(
 	idCidadao INT NOT NULL,
 	idMunicipio INT NOT NULL,
 	idProjeto INT NOT NULL,
-	data DATE NOT NUll,
+	data DATE NOT NULL,
 	PRIMARY KEY(idCidadao, idMunicipio, idProjeto)
 )
