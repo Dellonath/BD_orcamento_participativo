@@ -10,7 +10,7 @@ CREATE TABLE Usuario(
 )
 
 CREATE TABLE Telefone(
-	idUsuario INT PRIMARY KEY,
+	idUsuario INT,
 	telefone VARCHAR(15) NOT NULL,
 	FOREIGN KEY (idUsuario) REFERENCES Usuario(id) ON DELETE CASCADE
 )
@@ -53,10 +53,10 @@ CREATE TABLE Municipio(
 )
 
 CREATE TABLE Sugestao(
-	id INT PRIMARY KEY,
+	idUsuario INT,
 	descricao VARCHAR(300) NOT NULL,
 	tipo VARCHAR(30) NOT NULL,
-	FOREIGN KEY (id) REFERENCES Usuario(id) ON DELETE CASCADE
+	FOREIGN KEY (idUsuario) REFERENCES Usuario(id) ON DELETE CASCADE
 )
 
 CREATE TABLE Vota(
@@ -66,3 +66,20 @@ CREATE TABLE Vota(
 	data DATE NOT NULL,
 	PRIMARY KEY(idCidadao, idMunicipio, idProjeto)
 )
+
+INSERT INTO Usuario VALUES (1, 'MG-21402938', '132945829-33', 'Carlos Neves Andrade', 91654834, 'carlos_neves@gmail.com', 'carlitos', 'pD9NOTioLY'), 
+						   (2, 'MG-21108594', '132099942-34', 'Sofia Aparecida Menes', 84351726, 'sofia2008@gmail.com', 'sofiaAPMES', 'JJkoL412XE'), 
+						   (3, 'MG-43128374', '089410333-33', 'Maria Moasquen Virchout', 99432211, 'MMoasquen@gmail.com', 'maria.moasquenV', 'KLOpp9NOT')					   
+INSERT INTO Telefone VALUES (1, 35991554433), (2, 31991435848), (2, 31849781501)
+INSERT INTO Municipio VALUES (41247, 'Maria da Fé', 'MDF', 14646), (17462, 'São José dos Campos', 'SJC', 533501)
+INSERT INTO Cidadao VALUES (1, 'Ensino Superior Completo', 'Programador', 142341254, 41247), 
+						   (3, 'Ensino Superior Completo', 'Engenheira Civil', 321639475, 41247)	   
+INSERT INTO Gestor VALUES (2, 'Administradora', '2000-01-12', '2004-01-12', 41247)
+INSERT INTO Projeto VALUES (223, 'Asfaltar BR223', 'Asfaltar a BR223 perto da Vila Marta', 15000000, 0, 2),
+                           (245, 'Parque Azul Azulado', 'Criação do parque aquático Azul Azulado', 30000000, 1, 2)
+INSERT INTO Sugestao VALUES (1, 'Criar um evento sobre artesanato', 'Evento festivo'),
+                            (3, 'Criar uma quadra esportiva no bairro da Lage', 'Lazer')
+INSERT INTO Vota VALUES (1, 41247, 223, '2002-04-23'), (2, 41247, 223, '2002-04-23')
+
+
+
